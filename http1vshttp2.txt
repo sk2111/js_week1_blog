@@ -1,0 +1,124 @@
+HTTP 0.9
+
+    * Simple protocol contains only GET method and only html files can be requested
+    * There is no status code ,error code, no http headers
+    * Called as one line protocol
+    * TCP three way handshake and terminated immediately after request
+
+    Example
+     
+     Request look like
+
+        GET /mypage.html
+
+     Response look like
+
+        <HTML>
+          A very simple HTML page
+        </HTML>
+     
+HTTP 1.o => Building extensiblity
+
+    * Versioning was sent along with server request (HTTP/1.0 is appended to GET line)
+    * Status code also sent at the beginning of response, this allows broswer to take
+      certain desicions depending on success or failur of the request itself
+    * Http headers were introduced , so request and response have metadata sharing information
+    * With help of HTTP headers the ability to transmit other documents than plain html has been added
+    * Methods supported GET,POST,HEAD
+    * Connection of TCP terminated after response
+
+    Request looks like
+
+        GET /mypage.html HTTP/1.0
+        User-Agent: NCSA_Mosaic/2.0 (Windows 3.1)
+
+    
+    Response looks like
+
+        200 OK
+        Date: Tue, 15 Nov 1994 08:12:31 GMT
+        Server: CERN/3.0 libwww/2.17
+        Content-Type: text/html
+
+        <HTML>
+            A page with an image
+            <IMG SRC="/myimage.gif">
+        </HTML>
+
+    Since the previous html file request for image it will send followup request
+
+    Request
+
+        GET /myimage.gif HTTP/1.0
+        User-Agent: NCSA_Mosaic/2.0 (Windows 3.1)
+
+    Response
+
+        200 OK
+        Date: Tue, 15 Nov 1994 08:12:32 GMT
+        Server: CERN/3.0 libwww/2.17
+        Content-Type: text/gif
+        (image content)
+        
+Both HTTP 0.9 and HTTP 1 terminates TCP connection immediately which is a major draback
+
+ client            server
+
+ SYN M       ------>
+ SYN N,ACK M+1 <-------
+ ACK N+1------------>     
+
+ Three way handshake
+
+HTTP 1.1
+
+   * Proper standarized version after the publication of HTTP/1.0 RFC community framed the rules
+   * More stable over 15 years
+   * A connection can be reused saving time to reopen its numerous times to display the resources (TCP connection)
+   * Pipelining added allowig to send a second request before the answer for the first one
+   * More headers added
+   * Encoding ,type and other content negotiation is possible
+   * Host header is introduced so that same Ip can host multiple domains
+   * Request order need to be maintained
+   * Methods supported GET,HEAD,POST,PUT,DELETE,TRACE,OPTIONS
+   * connection is not terminated kept open for further request (thus eliminating three wasy handshake)
+   * TCP teardown hapoend at the end of all request
+
+   Request look like
+
+    GET /en-US/docs/Glossary/Simple_header HTTP/1.1
+    Host: developer.mozilla.org
+    User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:50.0) Gecko/20100101 Firefox/50.0
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+    Accept-Language: en-US,en;q=0.5
+    Accept-Encoding: gzip, deflate, br
+    Referer: https://developer.mozilla.org/en-US/docs/Glossary/Simple_header
+
+   Response looks like
+
+    200 OK
+    Connection: Keep-Alive
+    Content-Encoding: gzip
+    Content-Type: text/html; charset=utf-8
+    Date: Wed, 20 Jul 2016 10:55:30 GMT
+    Etag: "547fa7e369ef56031dd3bff2ace9fc0832eb251a"
+    Keep-Alive: timeout=5, max=1000
+    Last-Modified: Tue, 19 Jul 2016 00:59:33 GMT
+    Server: Apache
+    Transfer-Encoding: chunked
+    Vary: Cookie, Accept-Encoding
+
+    (content)
+
+
+HTTP2 - A protocol for greater performance
+
+    * It is binary form rather than text . It can no longer be read and created manually
+    * Optimizations can be added
+    * It is a multiplexed protocol
+    * Parallel connection is possible and ordering not important
+    * Repeated header transfer can be avoided and headers are compressed
+    * allow server to populate client cache
+    * Google proposed the idea with SPDY (which served as fundamental for HTTP2)
+    * Allow a connection to use upgrade headers for websockets 
+

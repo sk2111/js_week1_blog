@@ -1,0 +1,9 @@
+HTTP (Hyper Text Transfer protocol) is the underlying protocol of the world wide web 
+
+HTTP versions
+
+HTTP/0.9 - The one line protocol
+HTTP/1.0
+HTTP/1.1
+HTTP/2.0
+HTTP/3.0 (QUIC)=> expirmentation mode
