@@ -1,0 +1,7 @@
+Node js vs broswer js
+1) Broswer js is for client side whereas Node js is for server side
+2) Broswer has DOM and window object , Node dont have those
+3) Node have Apis to read/write access file system , browser is sanboxed and cannot do that
+4) In client side js engines can vary between broswer but node js is bulit using V8
+5) Client side Js have frameworks like React,angular to build apps and Node js has express etc for building server
+ 
