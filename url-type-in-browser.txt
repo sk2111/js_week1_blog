@@ -1,0 +1,38 @@
+What Happens when we type url in broswer and hit enter
+
+Parse the url
+  1) The url will be parsed first
+  2) Broswer will try to extract domain and protocol
+  3) protocol will be http: Hyper Text Transfer protocol
+  4) Resource "/" : Retrive main page
+  5) When no valid protocol or domain name is entered then the typed data will be passed
+     to browser default search engines
+
+Check HSTS list
+  1) The broswer then check its "preloaded HSTS (HTTP Strict Transport Security) list
+  2) This includes the list of websites to be contacted via HTTPS only
+  3) If the website is not in list a send normal HTTP or if it exists send HTTPS
+  4) Its possible to send initial request as http and user can switch to https depending upon
+  5) However there is a possiblity of downgrade attack so modern broswers have this lookup
+
+
+DNS lookup
+  1) The Broswer tries to find the IP of the domain . It happens in following sequence
+  2) Broswer cache
+  3) OS cache (if broswer cache dont have then go to OS cache)
+  4) Router cache (if OS dont have then move to router)
+  5) ISP DNS cache (if not found in router cache)
+  6) Recursive search (ISP DNS tries for recursive search from root nameserver,through .com top level nameserver,to google nameserver)
+
+
+Opening of a socket & TLS handshake
+
+  1) After receiving IP address and it make TCP socket stream call using system lib for specific port 
+  2) Port can be 80 for http and 443 for https
+  3) Client send a request for TCP request and server respond with certificate and encrytion type for HTTPS
+  4) Client verfies and sends back ack and also three way handshake is established
+  5) If valid HTTPS procedure is done then client send the details using encrypted channel
+
+
+After successful TCP protocol established then file transfer begins depending upon client request
+(Note depending on client and browser agreement HTTP1.1 or HTTP2 is used to communication)
